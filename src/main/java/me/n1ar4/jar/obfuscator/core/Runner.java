@@ -377,11 +377,14 @@ public class Runner {
         }
 
         if (config.isEnableSuperObfuscate()) {
-//            // 不支持 MAC 系统
-//            if (OSUtil.isMac()) {
-//                logger.error("mac os not support super obfuscate");
-//                return;
-//            }
+            if (!OSUtil.isArch64()) {
+                System.out.println("目前仅支持 64 位的操作系统");
+                return;
+            }
+
+            if (OSUtil.isMac()) {
+                logger.warn("目前对 MAC 的支持不稳定 请谨慎使用");
+            }
 
             // 检查 JAVA 8 环境
             if (!VerUtil.isJava8()) {
